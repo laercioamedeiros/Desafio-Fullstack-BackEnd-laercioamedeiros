@@ -1,12 +1,13 @@
 import "reflect-metadata";
 import "dotenv/config";
-import path from "path";
+import path from "path"
 import { DataSource, DataSourceOptions } from "typeorm";
 import { User } from "./entities/user.entity";
 import { Contact } from "./entities/contact.entity";
-import {initialMigration1679426195976} from "./migrations/1679426195976-initial_migration"
+
 const setDataSourceConfig = (): DataSourceOptions => {
- 
+  const entitiesPath: string = path.join(__dirname, "./entities/*.{js,ts}");
+  const migrationsPath: string = path.join(__dirname, "./migrations/*.{js,ts}");
 
   const nodeEnv = process.env.NODE_ENV;
 
@@ -15,19 +16,10 @@ const setDataSourceConfig = (): DataSourceOptions => {
       type: "sqlite",
       database: ":memory:",
       synchronize: true,
-      entities: [User, Contact],
+      entities: [entitiesPath],
     };
   }
-
-  if (nodeEnv === "production") {
-    return {
-      type: "postgres",
-      url: process.env.DATABASE_URL,
-      entities: [User, Contact],
-      migrations: [initialMigration1679426195976, ],
-    };
-  }
-
+  
   return {
     type: "postgres",
     host: process.env.PGHOST,
@@ -37,11 +29,10 @@ const setDataSourceConfig = (): DataSourceOptions => {
     database: process.env.PGDATABASE,
     synchronize: false,
     logging: true,
-    entities: [User, Contact],
-    migrations: [initialMigration1679426195976, ],
+    entities: [entitiesPath],
+    migrations: [migrationsPath],
   };
 };
 
 const dataSourceConfig = setDataSourceConfig();
 export default new DataSource(dataSourceConfig);
-

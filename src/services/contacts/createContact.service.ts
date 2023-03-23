@@ -1,31 +1,26 @@
 import AppDataSource from "../../data-source";
-import User from "../../entities/users.entity";
-import Technology from "../../entities/technologies.entity";
-import {
-  ITechRequest,
-  ITechResponse,
-} from "../../interfaces/technologies.interface";
-import { techResponseSerializer } from "../../serializers/technologies.serializers";
+import { Contact } from "../../entities/contact.entity";
+import {User} from "../../entities/user.entity";
+import { IContactRequest, IContactResponse } from "../../interfaces/contacts.interface";
 
-const createTechService = async (
-  data: ITechRequest,
-  userId: string
-): Promise<ITechResponse> => {
-  const userRepository = AppDataSource.getRepository(User);
-  const techRepository = AppDataSource.getRepository(Technology);
 
-  const foundUser: User = await userRepository.findOneBy({
-    id: parseInt(userId),
-  });
 
-  const createdTech = techRepository.create({ user: foundUser, ...data });
-  await techRepository.save(createdTech);
+// const createContactService = async (data: IContactRequest, userId: string): Promise<IContactResponse> => {
+//   const contactRepository = AppDataSource.getRepository(Contact);
+//   const userRepository = AppDataSource.getRepository(User);
+ 
+//   const foundUser: User = await userRepository.findOneBy({
+//     id: parseInt(userId),
+//   });
 
-  const validatedTech = await techResponseSerializer.validate(createdTech, {
-    stripUnknown: true,
-  });
+//   const createdContact = contactRepository.create({ user: foundUser, ...data });
+//   await contactRepository.save(createdContact);
 
-  return validatedTech;
-};
+//   // const validatedTech = await techResponseSerializer.validate(createdTech, {
+//   //   stripUnknown: true,
+//   // });
 
-export default createTechService;
+//   return validatedTech;
+// };
+
+// export default createContactService;

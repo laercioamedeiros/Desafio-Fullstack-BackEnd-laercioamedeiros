@@ -1,22 +1,24 @@
 import AppDataSource from "../../data-source";
-import Technology from "../../entities/technologies.entity";
+import { Contact } from "../../entities/contact.entity";
 import { AppError } from "../../errors/AppError";
-import { ITechResponse } from "../../interfaces/technologies.interface";
+import { IContactResponse } from "../../interfaces/contacts.interface";
 
-const deleteTechService = async (id: string): Promise<Object> => {
-  const TechRepository = AppDataSource.getRepository(Technology);
 
-  const findTechnology: ITechResponse = await TechRepository.findOneBy({
-    id: Number(id),
-  });
+// const deleteContactService = async (id: string): Promise<Object> => {
+  
+//   const contactRepository = AppDataSource.getRepository(Contact);
 
-  if (findTechnology == undefined) {
-    throw new AppError("Technology does not exists", 400);
-  }
+//   const findContact: IContactResponse = await contactRepository.findOneBy({
+//     id: Number(id),
+//   });
 
-  await TechRepository.delete(findTechnology);
+//   if (findContact == undefined) {
+//     throw new AppError("Contact does not exists", 400);
+//   }
 
-  return {};
-};
+//   await contactRepository.delete(findContact);
 
-export default deleteTechService;
+//   return {};
+// };
+
+// export default deleteContactService;

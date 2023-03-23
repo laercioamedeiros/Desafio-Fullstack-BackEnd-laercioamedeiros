@@ -6,10 +6,8 @@ import jwt from "jsonwebtoken";
 import { compare } from "bcrypt";
 import { AppError } from "../../errors/AppError";
 
-const createSessionService = async ({
-  email,
-  password,
-}: IUserLogin): Promise<string> => {
+const createSessionService = async ({email,password,}: IUserLogin): Promise<string> => {
+  
   const userRepository = AppDataSource.getRepository(User);
 
   const user = await userRepository.findOneBy({
@@ -19,10 +17,10 @@ const createSessionService = async ({
     throw new AppError("user or password incorret", 403);
   }
 
-  // if (!user.isActive) {
-  //   throw new AppError("user is already deactivated", 400);
-  // }
-
+  if (!user.isActive) {
+    throw new AppError("user is already deactivated", 400);
+  }
+ 
   const passwordMatch = await compare(password, user.password);
 
   if (!passwordMatch) {

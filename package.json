@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules src/app.ts",
-    "typeorm": "typeorm-ts-node-commonjs"
+    "typeorm": "typeorm-ts-node-commonjs",
+    "migrations:prod": "yarn typeorm migration:run -d dist/data-source"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -23,7 +24,7 @@
     "jsonwebtoken": "^9.0.0",
     "pg": "^8.10.0",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.3.12",
-    "yup": "^1.0.2"
+    "typeorm": "0.3.10",
+    "yup": "0.32.11"
   }
 }

@@ -1,38 +1,30 @@
 import * as yup from "yup";
-import { Schema } from "yup";
+import { ObjectSchema } from "yup";
 import { IUserRequest, IUserResponse } from "../interfaces/users.interfaces";
 
 
-
-const userSerializer: Schema<IUserRequest> = yup.object().shape({
+const userSerializer: ObjectSchema<any> = yup.object().shape({
   full_name: yup.string().max(100).required(),
   email: yup.string().email().max(100).required(),
-  password: yup
-    .string()
-    .matches(/(\d)/, "Must contain at least one number")
-    .matches(/(\W)|_/, "Must contain at least one special character")
-    .matches(/.{8,}/, "Must contain at least 8 characters")
-    .required("Password is required"),
-  phone_number: yup.string().max(20)
+  password: yup.string().required("Password is required"),
+  phone_number: yup.string().max(20).required(),
+  isAdm: yup.boolean().nullable(),
 });
 
-const userWithoutPassSerializer: Schema<IUserResponse> = yup.object().shape({
+const userWithoutPassSerializer: ObjectSchema<any> = yup.object().shape({
+  id: yup.number().required(),
   full_name: yup.string().required(),
   email: yup.string().email().required(),
-  id: yup.number().required(),
   phone_number: yup.string().nullable(),  
-  registeredAt: yup.date().required(),  
+  registeredAt: yup.date().required(),
+  isActive: yup.boolean().required(),
+  isAdm: yup.boolean().required()
 });
 
-const userUpdateSerializer: Schema<IUserRequest> = yup.object().shape({
+const userUpdateSerializer: ObjectSchema<any> = yup.object().shape({
   full_name: yup.string().max(100).required(),
   email: yup.string().email().max(100).required(),
-  password: yup
-    .string()
-    .matches(/(\d)/, "Must contain at least one number")
-    .matches(/(\W)|_/, "Must contain at least one special character")
-    .matches(/.{8,}/, "Must contain at least 8 characters")
-    .required("Password is required"),
+  password: yup.string().required("Password is required"),
   phone_number: yup.string().max(20)
 });
 
