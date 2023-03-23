@@ -5,6 +5,7 @@ import {usersListWithoutPassSerializer} from "../../serializers/users.serializer
 
 
 const listAllUsersService = async (): Promise<IUserResponse[]> => {
+  
   const userRepository = AppDataSource.getRepository(User);
   const users = await userRepository.findBy(
     {

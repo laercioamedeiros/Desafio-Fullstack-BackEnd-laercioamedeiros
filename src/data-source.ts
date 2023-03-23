@@ -29,10 +29,13 @@ const setDataSourceConfig = (): DataSourceOptions => {
     database: process.env.PGDATABASE,
     synchronize: false,
     logging: true,
-    entities: [entitiesPath],
+    entities: [User, Contact],
     migrations: [migrationsPath],
   };
 };
 
 const dataSourceConfig = setDataSourceConfig();
-export default new DataSource(dataSourceConfig);
+
+const AppDataSource = new DataSource(dataSourceConfig);
+
+export default  AppDataSource

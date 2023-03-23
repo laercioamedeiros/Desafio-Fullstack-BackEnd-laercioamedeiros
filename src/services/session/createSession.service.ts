@@ -13,6 +13,7 @@ const createSessionService = async ({email,password,}: IUserLogin): Promise<stri
   const user = await userRepository.findOneBy({
     email: email,
   });
+  
   if (!user) {
     throw new AppError("user or password incorret", 403);
   }

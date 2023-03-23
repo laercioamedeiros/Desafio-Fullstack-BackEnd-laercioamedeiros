@@ -5,8 +5,8 @@ import {userWithoutPassSerializer} from "../../serializers/users.serializers"
 
 
 export const createUserService = async (userData: IUserRequest) => {
-
-
+  
+  console.log(userData)
   
     const userRepository = AppDataSource.getRepository(User);
   
